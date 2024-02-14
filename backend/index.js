@@ -18,7 +18,6 @@ const port = process.env.PORT || 4000;
 app.use(express.json());
 
 app.use('/api/quizzes', quizRoutes);
-
 app.use('/api/gameSessions', gameSessionRoutes);// Path: mitt-fullstack-projekt/backend/routes/gameSessionRoutes.js
 
 // Konfiguration för express-session
