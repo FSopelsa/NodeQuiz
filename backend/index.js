@@ -8,7 +8,7 @@ import MongoStore from 'connect-mongo';
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Ansluten till MongoDB...'))
   .catch(err => console.error('Kunde inte ansluta till MongoDB...', err));
 
@@ -16,8 +16,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
-
-app.use('/api/quizzes', quizRoutes);
+app.use('/quizzes', quizRoutes);
 app.use('/api/gameSessions', gameSessionRoutes);// Path: mitt-fullstack-projekt/backend/routes/gameSessionRoutes.js
 
 // Konfiguration för express-session
@@ -29,6 +28,12 @@ app.use(session({
     cookie: { secure: 'auto', maxAge: 1000 * 60 * 60 * 24 } // Exempel: säker cookie, 1 dag lång
   }));
 
-app.listen(port, () => {
-  console.log(`Servern körs på port ${port}...`);
-});
+app.get('/', (req, res) => {
+    res.status(200).send('Server is running');
+  });
+
+const server = app.listen(port, () => {
+    console.log(`Servern körs på port ${port}...`);
+  });
+  
+export { app, server };
