@@ -35,15 +35,21 @@ app.get('/quizzes', (req, res) => {
     res.status(200).json({ message: 'Quizzes fetched successfully' });
     console.log('Quizzes fetched successfully')
   });
- 
-const startServer = (port) => {
-    let server = app.listen(port, () => {
-      console.log(`Server is running on port ${port}...`);
-    });
-    return server;
-  };
 
-let mainServerInstance = startServer(process.env.PORT); // start the server on port 4000
-mainServerInstance.close();
+let mainServerInstance;
+const startServer = (port) => {
+    if (!mainServerInstance) {
+      let server = app.listen(port, () => {
+        console.log(`Server is running on port ${port}...`);
+      });
+      return server;
+    } else {
+      console.log(`Server is already running on port ${port}...`);
+      return mainServerInstance;
+    }
+};
+
+mainServerInstance = startServer(process.env.PORT); // start the server on port 4000
+// mainServerInstance.close();
 
 export { app, startServer };      

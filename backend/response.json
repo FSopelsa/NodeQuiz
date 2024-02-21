@@ -1,27 +1,27 @@
 {
   "req": {
     "method": "POST",
-    "url": "http://127.0.0.1:61835/quizzes",
+    "url": "http://127.0.0.1:63659/quizzes",
     "data": [
       {
         "questions": [
           {
-            "id": 995,
-            "question": "Which operator is used to assign a value to a variable?",
+            "id": 983,
+            "question": "How does a WHILE loop start?",
             "description": null,
             "answers": {
-              "answer_a": "x",
-              "answer_b": "-",
-              "answer_c": "=",
-              "answer_d": "*",
+              "answer_a": "while (i <= 10)",
+              "answer_b": "while i = 1 to 10",
+              "answer_c": "while (i <= 10; i++)",
+              "answer_d": null,
               "answer_e": null,
               "answer_f": null
             },
             "multiple_correct_answers": "false",
             "correct_answers": {
-              "answer_a_correct": "false",
+              "answer_a_correct": "true",
               "answer_b_correct": "false",
-              "answer_c_correct": "true",
+              "answer_c_correct": "false",
               "answer_d_correct": "false",
               "answer_e_correct": "false",
               "answer_f_correct": "false"
@@ -36,23 +36,23 @@
             "difficulty": "Easy"
           },
           {
-            "id": 975,
-            "question": "Where is the correct place to insert a JavaScript?",
+            "id": 997,
+            "question": "Is JavaScript case-sensitive?",
             "description": null,
             "answers": {
-              "answer_a": "The <head> section",
-              "answer_b": "The <body> section",
-              "answer_c": "The <footer>",
-              "answer_d": "Both the <head> section and the <body> section are correct",
+              "answer_a": "True",
+              "answer_b": "False",
+              "answer_c": null,
+              "answer_d": null,
               "answer_e": null,
               "answer_f": null
             },
             "multiple_correct_answers": "false",
             "correct_answers": {
-              "answer_a_correct": "false",
+              "answer_a_correct": "true",
               "answer_b_correct": "false",
               "answer_c_correct": "false",
-              "answer_d_correct": "true",
+              "answer_d_correct": "false",
               "answer_e_correct": "false",
               "answer_f_correct": "false"
             },
@@ -75,11 +75,11 @@
   "header": {
     "x-powered-by": "Express",
     "content-type": "application/json; charset=utf-8",
-    "content-length": "1411",
-    "etag": "W/\"583-MgzQ6orQz6S5ui/XnL8k+FtUHGw\"",
-    "date": "Wed, 21 Feb 2024 13:28:23 GMT",
+    "content-length": "1320",
+    "etag": "W/\"528-rxbj5JaTkwh3ThTM4ymj5fKA5hk\"",
+    "date": "Wed, 21 Feb 2024 15:41:15 GMT",
     "connection": "close"
   },
   "status": 200,
-  "text": "[{\"questions\":[{\"id\":995,\"question\":\"Which operator is used to assign a value to a variable?\",\"description\":null,\"answers\":{\"answer_a\":\"x\",\"answer_b\":\"-\",\"answer_c\":\"=\",\"answer_d\":\"*\",\"answer_e\":null,\"answer_f\":null,\"_id\":\"65d5fa77b199fe947da98323\"},\"multiple_correct_answers\":\"false\",\"correct_answers\":{\"answer_a_correct\":\"false\",\"answer_b_correct\":\"false\",\"answer_c_correct\":\"true\",\"answer_d_correct\":\"false\",\"answer_e_correct\":\"false\",\"answer_f_correct\":\"false\",\"_id\":\"65d5fa77b199fe947da98324\"},\"correct_answer\":\"answer_a\",\"explanation\":null,\"tip\":null,\"tags\":[null],\"category\":\"Code\",\"difficulty\":\"Easy\",\"_id\":\"65d5fa77b199fe947da98322\"},{\"id\":975,\"question\":\"Where is the correct place to insert a JavaScript?\",\"description\":null,\"answers\":{\"answer_a\":\"The <head> section\",\"answer_b\":\"The <body> section\",\"answer_c\":\"The <footer>\",\"answer_d\":\"Both the <head> section and the <body> section are correct\",\"answer_e\":null,\"answer_f\":null,\"_id\":\"65d5fa77b199fe947da98326\"},\"multiple_correct_answers\":\"false\",\"correct_answers\":{\"answer_a_correct\":\"false\",\"answer_b_correct\":\"false\",\"answer_c_correct\":\"false\",\"answer_d_correct\":\"true\",\"answer_e_correct\":\"false\",\"answer_f_correct\":\"false\",\"_id\":\"65d5fa77b199fe947da98327\"},\"correct_answer\":\"answer_a\",\"explanation\":null,\"tip\":null,\"tags\":[null],\"category\":\"Code\",\"difficulty\":\"Easy\",\"_id\":\"65d5fa77b199fe947da98325\"}],\"_id\":\"65d5fa77b199fe947da98321\",\"__v\":0}]"
+  "text": "[{\"questions\":[{\"id\":983,\"question\":\"How does a WHILE loop start?\",\"description\":null,\"answers\":{\"answer_a\":\"while (i <= 10)\",\"answer_b\":\"while i = 1 to 10\",\"answer_c\":\"while (i <= 10; i++)\",\"answer_d\":null,\"answer_e\":null,\"answer_f\":null,\"_id\":\"65d6199b4f861ebf89f384ac\"},\"multiple_correct_answers\":\"false\",\"correct_answers\":{\"answer_a_correct\":\"true\",\"answer_b_correct\":\"false\",\"answer_c_correct\":\"false\",\"answer_d_correct\":\"false\",\"answer_e_correct\":\"false\",\"answer_f_correct\":\"false\",\"_id\":\"65d6199b4f861ebf89f384ad\"},\"correct_answer\":\"answer_a\",\"explanation\":null,\"tip\":null,\"tags\":[null],\"category\":\"Code\",\"difficulty\":\"Easy\",\"_id\":\"65d6199b4f861ebf89f384ab\"},{\"id\":997,\"question\":\"Is JavaScript case-sensitive?\",\"description\":null,\"answers\":{\"answer_a\":\"True\",\"answer_b\":\"False\",\"answer_c\":null,\"answer_d\":null,\"answer_e\":null,\"answer_f\":null,\"_id\":\"65d6199b4f861ebf89f384af\"},\"multiple_correct_answers\":\"false\",\"correct_answers\":{\"answer_a_correct\":\"true\",\"answer_b_correct\":\"false\",\"answer_c_correct\":\"false\",\"answer_d_correct\":\"false\",\"answer_e_correct\":\"false\",\"answer_f_correct\":\"false\",\"_id\":\"65d6199b4f861ebf89f384b0\"},\"correct_answer\":\"answer_a\",\"explanation\":null,\"tip\":null,\"tags\":[null],\"category\":\"Code\",\"difficulty\":\"Easy\",\"_id\":\"65d6199b4f861ebf89f384ae\"}],\"_id\":\"65d6199b4f861ebf89f384aa\",\"__v\":0}]"
 }
