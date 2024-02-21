@@ -3,9 +3,10 @@ import express from 'express';
 import quizRoutes from '../routes/quizRoutes.js';
 import gameSessionRoutes from '../routes/gameSessionRoutes.js';
 import mongoose from 'mongoose';
-import { app, server } from '../index.js';
+import { app, startServer } from '../index.js';
 import dotenv from 'dotenv';
 dotenv.config();
+
 
 app.use(express.json());
 app.use('/api/quizzes', quizRoutes);
@@ -19,9 +20,11 @@ afterAll(async () => {
     }, 10000);
 
 describe('Server', () => {
-    afterAll(() => {
-        return new Promise((resolve) => server.close(resolve));
-      });
+     // use a different port for testing
+     let serverInstance = startServer(process.env.TESTPORT1); // start the server on port 5000
+    afterAll(done => {
+      serverInstance.close(done);
+    });
   it('should be running', async () => {
     const res = await request(app).get('/');
     expect(res.statusCode).toEqual(200);
@@ -43,3 +46,11 @@ describe('Game Session Routes', () => {
     // Add more assertions based on your application's behavior
   });
 });
+
+/*
+describe('Index', () => {
+  it('should use the correct port', () => {
+    expect(port).toEqual(process.env.TESTPORT1 || 5000);
+  });
+});
+*/

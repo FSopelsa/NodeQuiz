@@ -13,7 +13,6 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('Kunde inte ansluta till MongoDB...', err));
 
 const app = express();
-const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use('/quizzes', quizRoutes);
@@ -32,8 +31,19 @@ app.get('/', (req, res) => {
     res.status(200).send('Server is running');
   });
 
-const server = app.listen(port, () => {
-    console.log(`Servern körs på port ${port}...`);
+app.get('/quizzes', (req, res) => {
+    res.status(200).json({ message: 'Quizzes fetched successfully' });
+    console.log('Quizzes fetched successfully')
   });
-  
-export { app, server };
+ 
+const startServer = (port) => {
+    let server = app.listen(port, () => {
+      console.log(`Server is running on port ${port}...`);
+    });
+    return server;
+  };
+
+let mainServerInstance = startServer(process.env.PORT); // start the server on port 4000
+mainServerInstance.close();
+
+export { app, startServer };      

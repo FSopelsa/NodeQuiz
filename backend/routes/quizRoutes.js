@@ -31,7 +31,6 @@ router.post('/', async (req, res) => {
 
 // Route för att hämta frågor från QuizAPI
 router.get('/fetch-quiz', async (req, res) => {
-    //const { tags = 'JavaScript', difficulty = 'Easy', limit = 5 } = req.query;
     try {
       const questions = await fetchQuestionsFromQuizApi();
       res.json(questions);
