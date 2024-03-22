@@ -8,7 +8,7 @@ import { expect } from '@jest/globals';
 describe('Quiz API Integration', () => {
         let serverInstance;
         beforeAll(() => {
-            serverInstance = startServer(process.env.TESTPORT2); // start the server on port 5000
+            serverInstance = startServer(process.env.TESTPORT2); // 5000
         });
         afterAll(done => {
             serverInstance.close(done);
