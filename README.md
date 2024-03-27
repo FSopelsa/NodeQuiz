@@ -1,11 +1,13 @@
 Instruktioner för att köra appen lokalt:
 
-1. Kör 'npm init' i mitt-fullstack-projekt så att node_modules återskapas
+1. I mappen mitt-fullstack-projekt, kör 'npm install' i terminal så att node_modules återskapas.
 
-1. Gå till backend (mitt-fullstack-projekt/backend)
-  -  Kör 'npm start'
+2. Gå till mappen backend mha. 'cd backend' => (mitt-fullstack-projekt/backend)
+  -  I backend, kör 'npm start' för att bl.a. starta servern på port 4000 och koppla upp mot MongoDB.
 
-2. Gå till frontend (mitt-fullstack-projekt/frontend)
-  -  Kör 'npm run serve'
+3. Öppna en ny terminal (Ctrl + Shift + ö).
 
-3. Öppna http://localhost:8080/ i webbläsaren.
+4. Gå till mappen frontend mha. 'cd frontend' => (mitt-fullstack-projekt/frontend)
+  -  I frontend, kör 'npm run serve' för att starta
+
+5. Hitta appen på http://localhost:8080/ i webbläsaren.
