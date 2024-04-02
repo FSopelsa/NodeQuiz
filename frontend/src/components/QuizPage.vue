@@ -1,7 +1,26 @@
 <template>
   <body>
-    <!-- Title and buttons to start new quizzes -->
-    <div id="my-signin2"></div>
+    <div id="g_id_onload"
+        data-client_id="687502014639-9smnn3le2jb20v74a0ev89p7cirn32o8.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleCredentialResponse"
+        data-auto_prompt="false">
+    </div>
+    <div v-if="profile">
+      <p>Welcome, {{ profile.fullName }}!</p>
+      <button @click="signOut">Sign Out</button>
+    </div>
+      <div v-else>
+        <div class="g_id_signin"
+            data-type="standard"
+            data-shape="pill"
+            data-theme="filled_black"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left">
+        </div>
+      </div>
     <h1>Felix Quiz Game</h1><br>
    <!-- <button @click="fetchNewQuiz" id="quizbutton">JavaScript Quiz</button> -->
     <button @click="fetchNewTDB" id="TDBbutton">Start a new Quiz</button>
@@ -13,9 +32,9 @@
         <div v-if="generatedGameCode">
           <h2>Quiz code: <br> {{ generatedGameCode }}</h2>
         </div>
-        <!-- Current question is displayed -->
+        <!-- Current question number and question are displayed -->
         <div v-if="questions.length > 0">
-          <h2 id="questionH2">{{ decodeHtml(questions[currentQuestionIndex].question) }}</h2>
+          <h2>Question {{ currentQuestionIndex + 1 }}: {{ decodeHtml(questions[currentQuestionIndex].question) }}</h2>
           <!-- Display the answer options -->
           <div id="alternatives" v-for="(answer, answerIndex) in questions[currentQuestionIndex].answers" :key="`${currentQuestionIndex}-${answerIndex}`">
             <div v-if="answer !== null">  
@@ -38,8 +57,12 @@
 <script>
 export default {
   name: 'QuizPage',
+  mounted() {
+    this.init();
+  },
   data() {
     return {
+      profile: null,
       generatedGameCode: '', // Variable to store the generated game code
       gameCodeSubmitted: false, // Variable to track if a game code has been submitted
       showQuizArea: false, // Boolean to show/hide the quiz area
@@ -49,27 +72,57 @@ export default {
       score: 0, // Variable to store the user's score
       currentQuestionIndex: 0, // Index of the current question being displayed
       highScoreUserObject: {}, // Object to store the user's high score
+      questionsAnswered: 0, // Variable to store the number of questions answered
     };
   },
   methods: {
-    onSignIn(googleUser) {
-      var id_token = googleUser.getAuthResponse().id_token;
-      fetch('/api/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ token: id_token })
-      })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch((error) => {
-        console.error('Error:', error);
+    async handleCredentialResponse(response) {
+      console.log("ID token: " + response.credential);
+      const profile = response.getBasicProfile();
+      const fullName = profile.getName();
+      const email = profile.getEmail();
+      const imageUrl = profile.getImageUrl();
+      this.profile = { fullName, email, imageUrl };
+    },
+    signOut() {
+      var auth2 = window.gapi.auth2.getAuthInstance();
+      auth2.signOut().then(() => {
+        console.log("User signed out");
+        this.profile = null;
       });
     },
-    onFailure(error) {
-      console.log(error);
+    initGoogleAuth() {
+      console.log("Init Google Auth");
+      window.gapi.load("auth2", function () {
+        window.gapi.auth2.init({ client_id: '687502014639-9smnn3le2jb20v74a0ev89p7cirn32o8.apps.googleusercontent.com' });
+      });
     },
+    renderGoogleAuthButton() { 
+      console.log("Render Google Auth Button");
+      window.gapi.signin2.render("g-signin2", {
+        onsuccess: this.handleCredentialResponse
+      });
+    },
+
+    init() {
+      console.log("Init");
+
+      let gapiScript = document.querySelector('script[src="https://accounts.google.com/gsi/client"]');
+      if (!gapiScript) {
+        gapiScript = document.createElement('script');
+        gapiScript.src = 'https://accounts.google.com/gsi/client';
+        document.body.appendChild(gapiScript);
+      }
+
+      let checkGapiInterval = setInterval(() => {
+        if (window.gapi) {
+          clearInterval(checkGapiInterval);
+          this.initGoogleAuth();
+          this.renderGoogleAuthButton();
+        }
+      }, 2000);  // check every 2000ms
+    },
+
     async fetchQuizFromDatabase() {
       try {
         const response = await fetch(`http://localhost:4000/quizzes/${this.gameCode}`); // Replace with your actual endpoint
@@ -167,6 +220,13 @@ export default {
         // If it was the last question, hide the quiz area
         this.showQuizArea = false;
       }
+      // Increment the number of questions answered
+      this.questionsAnswered++;
+      // If 10 questions have been answered, reset the score and the counter
+      if (this.questionsAnswered >= 10) {
+        this.score = 0;
+        this.questionsAnswered = 0;
+      }
     },
 
     // Shuffle function
@@ -217,27 +277,7 @@ export default {
         console.error(error);
       }
     },
-  },/*
-  mounted() {
-    let script = document.createElement('script');
-    script.src = "https://apis.google.com/js/platform.js";
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-    script.onload = () => {
-      gapi.load('auth2', () => {
-        gapi.auth2.init({
-          client_id: '687502014639-9smnn3le2jb20v74a0ev89p7cirn32o8.apps.googleusercontent.com'
-        }).then(() => {
-          gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'onsuccess': this.onSignIn,
-            'onfailure': this.onFailure
-          });
-        });
-      });
-    };
-  },*/
+  },
 };
 </script>
 
